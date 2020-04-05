@@ -1,0 +1,174 @@
+Intel RDT (Resource Director Technology)
+https://www.intel.com/content/www/us/en/architecture-and-technology/resource-director-technology.html
+
+CNN Videohttps://www.youtube.com/watch?v=FmpDIaiMIeA
+
+Packaging: C4, BGAhttps://www.researchgate.net/figure/a-Conventional-package-with-substrate-core-b-Coreless-package-with-ball-grid-array_fig1_308853423  
+
+Security: Crypto algo
+Subject: Hash-based signature 
+ I am writing to share withyou a few pointers to hash-based signature: https://blog.cryptographyengineering.com/2018/04/07/hash-based-signatures-an-illustrated-primer/ https://pqcrypto.org/hash.html https://csrc.nist.gov/csrc/media/events/workshop-on-cybersecurity-in-a-post-quantum-world/documents/papers/session5-hulsing-paper.pdf https://tools.ietf.org/id/draft-mcgrew-hash-sigs-11.html https://medium.com/coinmonks/quantum-robust-hash-based-signatures-2c11d2739d38  Please, let me know if youhave thoughts, questions that you want to share with me. 
+
+DRAM PHY signal integrity https://www.edn.com/electronics-blogs/eye-on-standards/4440609/Optimize-equalization-for-FFE--CTLE--DFE--and-crosstalk
+
+
+86 MMU
+https://en.wikipedia.org/wiki/Memory_management_unit
+
+IA-32 / x86[edit]
+The x86 architecture has evolved over a very long time while maintaining full software compatibility, even for OS code. Thus, the MMU is extremely complex, with many different possible operating modes. Normal operation of the traditional 80386 CPU and its successors (IA-32) is described here.
+
+The CPU primarily divides memory into 4 KB pages. Segment registers, fundamental to the older 8088 and 80286 MMU designs, are not used in modern OSes, with one major exception: access to thread-specific data for applications or CPU-specific data for OS kernels, which is done with explicit use of the FS and GS segment registers. All memory access involves a segment register, chosen according to the code being executed. The segment register acts as an index into a table, which provides an offset to be added to the virtual address. Except when using FS or GS, the OS ensures that the offset will be zero.
+
+After the offset is added, the address is masked to be no larger than 32 bits. The result may be looked up via a tree-structured page table, with the bits of the address being split as follows: 10 bits for the branch of the tree, 10 bits for the leaves of the branch, and the 12 lowest bits being directly copied to the result. Some operating systems, such as OpenBSD with its W^X feature, and Linux with the Exec Shield or PaX patches, may also limit the length of the code segment, as specified by the CS register, to disallow execution of code in modifiable regions of the address space.
+
+Minor revisions of the MMU introduced with the Pentium have allowed very large 4 MB pages by skipping the bottom level of the tree (this leaves 10 bits for indexing the first level of page hierarchy with the remaining 10+12 bits being directly copied to the result). Minor revisions of the MMU introduced with the Pentium Pro introduced the physical address extension (PAE) feature, enabling 36-bit physical addresses with 2+9+9 bits for three-level page tables and 12 lowest bits being directly copied to the result. Large pages (2 MB) are also available by skipping the bottom level of the tree (resulting in 2+9 bits for two-level table hierarchy and the remaining 9+12 lowest bits copied directly). In addition, the page attribute table allowed specification of cacheability by looking up a few high bits in a small on-CPU table.
+
+No-execute support was originally only provided on a per-segment basis, making it very awkward to use. More recent x86 chips provide a per-page no-execute bit in the PAE mode. The W^X, Exec Shield, and PaX mechanisms described above emulate per-page non-execute support on machines x86 processors lacking the NX bit by setting the length of the code segment, with a performance loss and a reduction in the available address space.
+
+x86-64[edit]
+
+Heterogeneous System Architecture (HSA) creates a unified virtual address space for CPUs, GPUs and DSPs, obsoleting the mapping tricks and data copying.
+x86-64 is a 64-bit extension of x86 that almost entirely removes segmentation in favor of the flat memory model used by almost all operating systems for the 386 or newer processors. In long mode, all segment offsets are ignored, except for the FS and GS segments. When used with 4 KB pages, the page table tree has four levels instead of three.
+
+The virtual addresses are divided as follows: 16 bits unused, nine bits each for four tree levels (for a total of 36 bits), and the 12 lowest bits directly copied to the result. With 2 MB pages, there are only three levels of page table, for a total of 27 bits used in paging and 21 bits of offset. Some newer CPUs also support a 1 GB page with two levels of paging and 30 bits of offset.[9]
+
+CPUID can be used to determine if 1 GB pages are supported. In all three cases, the 16 highest bits are required to be equal to the 48th bit, or in other words, the low 48 bits are sign extended to the higher bits. This is done to allow a future expansion of the addressable range, without compromising backwards compatibility. In all levels of the page table, the page table entry includes a no-execute bit.
+
+64 bit data model: ARM use LP64 (long int,pointer are 64 bits, size_t is 64 bit, int is 32bit
+
+
+https://leetcode.com/discuss/interview-question/352460/Google-Online-Assessment-Questions
+https://leetcode.com/discuss/interview-experience/124626/Google-onsite-interview-questions/219347
+https://medium.com/@koheiarai94/60-leetcode-questions-to-prepare-for-coding-interview-8abbb6af589e
+http://a4academics.com/interview-questions/57-c-plus-plus/722-embedded-c-interview-questions?showall=&start=6
+ What are the uses of the keyword static?
+Static keyword can be used with variables as well as functions. A variable declared static will be of static storage class and within a function, it maintains its value between calls to that function. A variable declared as static within a file, scope of that variable will be within that file, but it can't be accessed by other files.
+Functions declared static within a module can be accessed by other functions within that module. That is, the scope of the function is localized to the module within which it is declared.
+
+
+
+ What is Top half & bottom half of a kernel?
+Sometimes to handle an interrupt, a substantial amount of work has to be done. But it conflicts with the speed need for an interrupt handler. To handle this situation, Linux splits the handler into two parts – Top half and Bottom half. The top half is the routine that actually responds to the interrupt. The bottom half on the other hand is a routine that is scheduled by the upper half to be executed later at a safer time.
+All interrupts are enabled during execution of the bottom half. The top half saves the device data into the specific buffer, schedules bottom half and exits. The bottom half does the rest. This way the top half can service a new interrupt while the bottom half is working on the previous.
+
+Different types of IPC mechanism are -
+• Pipes
+• Named pipes or FIFO 
+• Semaphores
+• Shared memory
+• Message queue
+• Socket
+
+The differences between binary semaphore and mutex are as follows -
+Mutual exclusion and synchronization can be used by binary semaphore while mutex is used only for mutual exclusion.
+A mutex can be released by the same thread which acquired it. Semaphore values can be changed by other thread also.
+From an ISR, a mutex can not be used.
+The advantage of semaphores is that, they can be used to synchronize two unrelated processes trying to access the same resource.
+Semaphores can act as mutex, but the opposite is not possible.
+
+
+What happens when recursive functions are declared inline?
+Inlining an recursive function reduces the overhead of saving context on stack. But, inline is merely a suggestion to the compiler and it does not guarantee that a function will be inlined. Obviously, the compiler won't be able to inline a recursive function infinitely. It may not inline it at all or it may inline it, just a few levels deep.
+37) #define cat(x,y) x##y concatenates x to y. But cat(cat(1,2),3) does not expand but gives preprocessor warning. Why?
+The cat(x, y) expands to x##y. It just pastes x and y. But in case of cat(cat(1,2),3), it expands to cat(1,2)##3 instead of 1##2##3. That is why it is giving preprocessor warning.
+38) ++*ip increments what?
+It increments the value to which ip points to and not the address.
+
+
+ Using the variable a, write down definitions for the following:
+• An integer
+• A pointer to an integer
+• A pointer to a pointer to an integer
+• An array of ten integers
+• An array of ten pointers to integers
+• A pointer to an array of ten integers
+• A pointer to a function that takes an integer as an argument and returns an integer
+• Pass an array of ten pointers to a function that take an integer argument and return an integer.
+The correct answer is as follows -
+• int a;
+• int *a;
+• int **a;
+• int a[10];
+• int *a[10];
+• int (*a)[10];
+• int (*a)(int);
+• int (*a[10])(int);
+
+
+
+Consider the two statements below and point out which one is preferred and why?
+#define B struct A *
+typedef struct A * C;
+The typedef is preferred. Both statements declare pointer to struct A to something else and in one glance both looks fine. But there is one issue with the define statement. Consider a situation where we want to declare p1 and p2 as pointer to struct A. We can do this by -
+C p1, p2;
+But doing - B p1, p2, it will be expanded to struct A * p1, p2. It means that p1 is a pointer to struct A but p2 is a variable of struct A and not a pointer.
+
+
+On a certain project it is required to set an integer variable at the absolute address 0x67a9 to the value 0xaa55. The compiler is a pure ANSI compiler. Write code to accomplish this task.
+This can be achieved by the following code fragment:
+int *ptr; 
+ptr = (int *)0x67a9; 
+*ptr = 0xaa55;
+
+
+
+What is wild pointer?
+A pointer that is not initialized to any valid address or NULL is considered as wild pointer. Consider the following code fragment -
+int *p;
+*p = 20;
+Here p is not initialized to any valid address and still we are trying to access the address. The p will get any garbage location and the next statement will corrupt that memory location.
+
+
+Wild Pointer
+A pointer which is not initialized with any address is called wild pointer. The wild pointer is by default stored with the garbage value.
+Be clear that there is difference among the NULL pointer and wild pointer. NULL pointer is assigned with the address 0 where as wild pointer is not assigned with any address.
+#include<stdio.h>
+int main()
+{
+short *p;
+printf("%u",p);
+return 0;
+}
+Output:
+ 818
+Here p is the pointer pointing nothing, stored with the garbage value
+Dangling pointer:
+short *p;
+p=(short*)malloc(2);
+
+Here p points the memory allocation allocated by malloc().
+free(p);
+
+Though we delete the allocated memory, p still points the same memory. If a pointer points de-allocated memory then the pointer is called dangling pointer.
+#include<stdio.h>
+int* test()
+{
+int a=10;
+return &a;
+}
+int main()
+{
+int *p;
+p=test();
+}
+Here the scope of variable a of test() ends after returning the address to main(). Now p points a memory location which has de-allocated. So, here p is the dangling pointer.
+
+
+
+between different integral types - one is unsigned int and another is int. So, all the operands in this addition are promoted to unsigned integer type
+
+
+ Write a code fragment to set and clear only bit 3 of an integer.
+
+#define BIT(n) (0x1 << n)
+int a;
+void SetBit3()
+{
+a |= BIT(3);
+}
+void ClearBit3()
+{
+a &= ~BIT(3);
+}
+
